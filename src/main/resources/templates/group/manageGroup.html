@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/common/header"></head>
+
+<body>
+
+<div id="wrapper">
+
+    <nav th:include="/common/sidebar"></nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Group</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Create New Group
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" th:action="@{/group/createGroup}" th:object="${group}" method="POST">
+
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <form role="form">
+                                        <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? has-error">
+                                            <label>Group Name</label>
+                                            <input class="form-control" th:field="*{name}">
+                                            <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="validation-message"></label>
+                                        </div>
+
+
+                                        <input type="hidden" name="id" th:value="*{id}" />
+                                        <input type="hidden" th:if="${id != null}" name="createdOn" th:value="*{createdOn}" />
+                                        <input type="hidden" th:if="${id != null}" name="createdOn" th:value="*{updatedOn}" />
+
+                                        <button type="submit" class="btn btn-default">Submit Button</button>
+                                        <button type="reset" class="btn btn-default">Reset Button</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+</body>
+
+<footer th:include="/common/footer"></footer>
+
+</html>
