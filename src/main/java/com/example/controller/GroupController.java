@@ -101,13 +101,26 @@ public class GroupController {
     public ResponseEntity<String> addMemberToGroup(@Valid GroupMember groupMember, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
+        try{
+
         Group group = groupService.findById(Long.parseLong(groupMember.getGroupId()));
 
-        group.getMembers().add(memberService.findById(Long.parseLong(groupMember.getMemberValue())));
+        Member memberToBeAdded = memberService.findById(Long.parseLong(groupMember.getMemberValue()));
 
-        try{
+        if(memberToBeAdded != null){
+
+            if(group.getMembers().contains(memberToBeAdded)){
+                return new ResponseEntity("Member already exist !!", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            group.getMembers().add(memberToBeAdded);
+            memberToBeAdded.getGroups().add(group);
+            //memberService.saveMember(memberToBeAdded);
             groupService.saveGroup(group);
             return new ResponseEntity("Data Saved Successfully", HttpStatus.OK);
+        }else {
+            return new ResponseEntity("Member Not Found !!!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

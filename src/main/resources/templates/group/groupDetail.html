@@ -22,6 +22,10 @@
                     Add Members
                 </button>
 
+                <button class="btn btn-primary pull-right" style="margin-right: 10px;" data-toggle="modal" data-target="#smsBox">
+                    Send SMS
+                </button>
+
                 <!-- Modal -->
                 <div class="modal fade" id="memberBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                      aria-hidden="true">
@@ -60,6 +64,35 @@
                 </div>
                 <!-- /.modal -->
 
+                <!-- Modal -->
+                <div class="modal fade" id="smsBox" tabindex="-1" role="dialog" aria-labelledby="mySmsLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="mySmsLabel">Message Body</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" th:action="@{/sms/sendSMS}" method="POST" id="sendSMSForm">
+                                    <div>
+                                        <label>Message</label>
+                                        <input class="form-control" id="smsInput" name="smsInput" maxlength="140">
+                                        <input type="hidden" class="form-control" id="groupId" name="groupId" th:value="*{group.id}">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Send SMS</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
             </div>
         </div>
 
@@ -111,7 +144,9 @@
                 null,
                 { "width": "18%" },
                 { "width": "18%" },
-                { "width": "15%" }
+                { "width": "15%" },
+                null,
+                null
             ]
         });
 
@@ -133,8 +168,26 @@
                 success: function(resp){
                     $("#successMessage").show();
                 },
-                error: function() {
-                    //handle error
+                error: function(e, message) {
+                    alert(e.responseText);
+                }
+            });
+            return false;
+        });
+
+        $('#sendSMSForm').submit(function() {
+            var form = $(this);
+            var data = form.serialize();
+
+            $.ajax({
+                url: '/sms/sendSMS',
+                method: 'POST',
+                data: data,
+                success: function(resp){
+                    alert("Done")
+                },
+                error: function(e, message) {
+                    alert(e.responseText);
                 }
             });
             return false;

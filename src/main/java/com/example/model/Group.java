@@ -20,7 +20,7 @@ public class Group {
     @NotEmpty(message = "*Please provide Group Name")
     private String name;
 
-    @ManyToMany(mappedBy = "groups",cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "groups")
     private Set<Member> members = new HashSet<Member>(0);
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -37,25 +37,30 @@ public class MemberServiceImpl implements MemberService{
             member.addAddress(member.getAddress());
 
             try{
-                long fatherId = Long.parseLong(member.getFatherMemberValue());
-                member.setFatherName(findById(fatherId));
+                if(member.getFatherMemberValue() != null){
+                    long fatherId = Long.parseLong(member.getFatherMemberValue());
+                    member.setFatherName(findById(fatherId));
+                }
             }catch (Exception e){
                 // need to store data in different column
                 member.setFatherValue(member.getFatherMemberValue());
             }
 
             try{
-                long motherId = Long.parseLong(member.getMotherMemberValue());
-                member.setMotherName(findById(motherId));
+                if(member.getMotherMemberValue() != null){
+                    long motherId = Long.parseLong(member.getMotherMemberValue());
+                    member.setMotherName(findById(motherId));
+                }
             }catch (Exception e){
                 // need to store data in different column
                 member.setMotherValue(member.getMotherMemberValue());
             }
 
-            List<Group> groups = new ArrayList<Group>();
-            groups.add(groupService.findById(member.getGroupId().longValue()));
-            member.addGroups(groups);
-
+            if(member.getGroupId() != null){
+                List<Group> groups = new ArrayList<Group>();
+                groups.add(groupService.findById(member.getGroupId().longValue()));
+                member.addGroups(groups);
+            }
 
             memberRepository.save(member);
         }catch (Exception e){
