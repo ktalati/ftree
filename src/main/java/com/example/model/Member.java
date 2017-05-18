@@ -78,14 +78,9 @@ public class Member {
     private String motherValue;
 
     @Transient
-    private Integer groupId;
-
-    @Transient
-    @NotEmpty(message = "*Please provide Father Name")
     private String fatherMemberValue;
 
     @Transient
-    @NotEmpty(message = "*Please provide Mother Name")
     private String motherMemberValue;
 
     public void addAddress(Address address){
@@ -194,14 +189,6 @@ public class Member {
 
     public void setGroups(List<Group> groups) {
         this.groups = groups;
-    }
-
-    public Integer getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
     }
 
     public String getFatherMemberValue() {

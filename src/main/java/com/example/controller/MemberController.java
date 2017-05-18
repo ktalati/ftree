@@ -119,6 +119,7 @@ public class MemberController {
         }
         modelAndView = new ModelAndView();
         modelAndView.addObject("member", member);
+        modelAndView.addObject("groups", groupService.findAllGroups());
         modelAndView.setViewName("member/manageMember");
         modelAndView.addObject("menu", "addMember");
         return modelAndView;

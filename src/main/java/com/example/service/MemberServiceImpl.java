@@ -56,12 +56,6 @@ public class MemberServiceImpl implements MemberService{
                 member.setMotherValue(member.getMotherMemberValue());
             }
 
-            if(member.getGroupId() != null){
-                List<Group> groups = new ArrayList<Group>();
-                groups.add(groupService.findById(member.getGroupId().longValue()));
-                member.addGroups(groups);
-            }
-
             memberRepository.save(member);
         }catch (Exception e){
             e.printStackTrace();
@@ -82,7 +76,25 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public Member findById(Long id) {
-        return memberRepository.findOne(id);
+
+        Member member = memberRepository.findOne(id);
+
+        if(member != null){
+            if(member.getFatherName()!=null){
+                member.setFatherMemberValue(String.valueOf(member.getFatherName().getId()));
+                member.setFatherValue(member.getFatherName().getFirstName() + " " +member.getFatherName().getMiddleName() + " " +member.getFatherName().getLastName());
+            }else{
+                member.setFatherMemberValue(member.getFatherValue());
+            }
+
+            if(member.getMotherName()!=null){
+                member.setMotherMemberValue(String.valueOf(member.getMotherName().getId()));
+                member.setMotherValue(member.getMotherName().getFirstName() + " " +member.getMotherName().getMiddleName() + " " + member.getMotherName().getLastName());
+            }else{
+                member.setMotherMemberValue(member.getMotherValue());
+            }
+        }
+        return member;
     }
 
     @Override

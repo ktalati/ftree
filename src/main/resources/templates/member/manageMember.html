@@ -84,11 +84,15 @@
 
                                     <div class="form-group">
                                         <label>Groups</label>
-                                        <select class="form-control" th:field="*{groupId}">
-                                            <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}"></option>
+                                        <select multiple="multiple" class="form-control selectpicker" th:field="*{groups}">
+                                            <option th:each="group : ${groups}" th:value="${{group.id}}" th:text="${group.name}"></option>
                                         </select>
                                     </div>
                                     <input type="hidden" name="id" th:value="*{id}" />
+                                    <input type="hidden" th:if="${id != null}" name="address.id" th:value="*{address.id}" />
+                                    <input type="hidden" th:if="${id != null}" id="fatherValue" name="fatherValue" th:value="*{fatherValue}" />
+                                    <input type="hidden" th:if="${id != null}" id="motherValue" name="motherValue" th:value="*{motherValue}" />
+                                    <input type="hidden" th:if="${id != null}" name="address.member" th:value="*{id}" />
                                     <input type="hidden" th:if="${id != null}" name="createdOn" th:value="*{createdOn}" />
                                     <input type="hidden" th:if="${id != null}" name="createdOn" th:value="*{updatedOn}" />
                                 </div>
@@ -139,12 +143,16 @@
                                     <div class="form-group">
                                         <label>Landline Number</label>
                                         <input class="form-control" th:field="*{phones[0].number}">
+                                        <input type="hidden" th:if="${member.phones[0].id != null}" th:field="*{phones[0].id}" th:value="*{phones[0].id}"/>
+                                        <input type="hidden" th:if="${member.phones[0].id != null}" th:field="*{phones[0].member}" th:value= "*{phones[0].member}"/>
                                         <input type="hidden" th:field="*{phones[0].type}" th:value="*{phones[0].type}"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Mobile Number</label>
                                         <input class="form-control" th:field="*{phones[1].number}">
+                                        <input type="hidden" th:if="${member.phones[1].id != null}" th:field="*{phones[1].id}" th:value="*{phones[1].id}"/>
+                                        <input type="hidden" th:if="${member.phones[1].id != null}" th:field="*{phones[1].member}" th:value="*{phones[1].member}"/>
                                         <input type="hidden" th:field="*{phones[1].type}" th:value="*{phones[1].type}"/>
                                     </div>
                                 </div>
@@ -169,19 +177,17 @@
 <script>
 
     // A $( document ).ready() block.
-    /*$( document ).ready(function() {
+    $( document ).ready(function() {
 
         if($("#fatherMemberValue").val() != ''){
-            $('input#father').val($("#fatherMemberValue").val());
+            $('input#father').val($("#fatherValue").val());
         }
 
         if($("#motherMemberValue").val() != ''){
-            $('input#mother').val($("#motherMemberValue").val());
+            $('input#mother').val($("#motherValue").val());
         }
 
-        alert("ready");
-
-    });*/
+    });
 
     $("#birthDate").datepicker({
         inline: true,

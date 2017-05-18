@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.google.common.base.Objects;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -69,5 +70,25 @@ public class Group {
 
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (!(obj instanceof Group))
+            return false;
+
+        Group other = (Group) obj;
+        return (Objects.equal(getName(), other.getName()));
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getName());
     }
 }
