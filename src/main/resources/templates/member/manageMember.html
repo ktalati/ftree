@@ -3,7 +3,23 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="/common/header"></head>
-
+<style>
+.kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none !important;
+    text-align: center;
+}
+.kv-avatar .file-input {
+    display: table-cell;
+    max-width: 220px;
+}
+.file-preview{
+	width: 172px;
+	height: 172px;
+}
+</style>
 <body>
 
     <div id="wrapper">
@@ -23,7 +39,16 @@
                             Add New Member
                         </div>
                         <div class="panel-body">
-                            <form role="form" th:action="@{/member/addMember}" th:object="${member}" method="POST">
+                            <form role="form" th:action="@{/member/addMember}" th:object="${member}" method="POST" enctype="multipart/form-data">
+                            	<div class="row">
+					            	<div class="col-xs-12">
+										<div id="kv-avatar-errors" class="center-block" style="width: 800px; display: none"></div>
+										<div class="kv-avatar center-block pull-right" style="width: 160px; text-align: center; margin-right: 15px;">
+											<input id="profilePicture" name="profilePicture" type="file" class="file-loading">
+										</div>
+										<!-- <img th:src="@{/member/getAvatar/4}" /> -->
+									</div>
+					            </div>
                                 <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group" th:classappend="${#fields.hasErrors('firstName')} ? has-error">
@@ -193,6 +218,67 @@
         inline: true,
         maxDate: 0
     });
+    
+    $("#profilePicture").fileinput({
+        overwriteInitial: true,
+        maxFileSize: 1500,
+        showClose: false,
+        showCaption: false,
+        browseLabel: '',
+        removeLabel: '',
+        browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+        removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+        removeTitle: 'Cancel or reset changes',
+        elErrorContainer: '#kv-avatar-errors',
+        msgErrorClass: 'alert alert-block alert-danger',
+        defaultPreviewContent: '<img src="/images/avatar.png" alt="Your Avatar" style="width:160px">',
+        layoutTemplates: {main2: '{preview} {remove} {browse}', footer:''},
+        allowedFileExtensions: ["jpg", "png"]
+    });
+    
+    function renderAvatar(imgStr,isDefault){
+    	var defaultAvatarDiv = $(".file-default-preview");
+    	var newPreviewDiv = $('<div>').addClass('file-preview-frame krajee-default kv-preview-thumb');
+    	newPreviewDiv.attr("id","preview-1234");
+    	newPreviewDiv.attr("data-fileindex","0");
+    	newPreviewDiv.attr("data-template","image");
+    	newPreviewDiv.attr("style","width: 97%;");
+    	var imgTag = $('<img>');
+    	if(isDefault){
+    		imgTag.attr("src","/images/avatar.png");
+    	}else{
+    		imgTag.attr("src","data:image/jpg;base64,"+imgStr);
+    	}
+    	imgTag.attr("title","sample.jpg");
+    	imgTag.attr("alt","sample.jpg");
+    	imgTag.attr("width","160px;");
+    	imgTag.attr("height","160px;");
+    	var newFileContentDiv = $('<div>').addClass('kv-file-content');
+    	newFileContentDiv.append(imgTag);
+    	newPreviewDiv.append(newFileContentDiv);
+    	defaultAvatarDiv.replaceWith(newPreviewDiv);
+    }
+    
+    var memberId = $("input[name=id]").val();
+    console.log(memberId);
+    if(memberId != ""){
+    	$.ajax({
+            url: "/member/getAvatar/encoded/"+memberId,
+            success: function(result){
+            	//console.log(result);
+            	if(result==""){
+            		renderAvatar(result,true);
+            	}else{
+            		renderAvatar(result,false);
+            	}
+            },
+            error: function(error){
+            	console.log(error);
+            	alert("Error while fetching user avatar!");
+            }
+        });
+    }
+    
 
     $('#father').autocomplete({
         minLength: 2,
