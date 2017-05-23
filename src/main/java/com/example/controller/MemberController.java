@@ -1,15 +1,11 @@
 package com.example.controller;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
+import com.example.domain.MemberAutoSuggest;
+import com.example.model.Member;
+import com.example.model.Phone;
+import com.example.service.GroupService;
+import com.example.service.MemberService;
+import com.example.util.PhoneEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpHeaders;
@@ -21,21 +17,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.domain.MemberAutoSuggest;
-import com.example.model.Member;
-import com.example.model.Phone;
-import com.example.service.GroupService;
-import com.example.service.MemberService;
-import com.example.util.PhoneEnum;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/member")
@@ -138,6 +131,24 @@ public class MemberController {
         modelAndView.addObject("member", member);
         modelAndView.addObject("groups", groupService.findAllGroups());
         modelAndView.setViewName("member/manageMember");
+        modelAndView.addObject("menu", "addMember");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/view", method = RequestMethod.GET)
+    public ModelAndView viewMember(@ModelAttribute("id") Long id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        if (StringUtils.isEmpty(id) || id < 0) {
+            throw new Exception("Member Not Found");
+        }
+        Member member = memberService.findById(id.longValue());
+        if (member == null) {
+            throw new Exception("Member Not Found");
+        }
+        modelAndView = new ModelAndView();
+        modelAndView.addObject("member", member);
+        modelAndView.addObject("groups", groupService.findAllGroups());
+        modelAndView.setViewName("member/memberDetail");
         modelAndView.addObject("menu", "addMember");
         return modelAndView;
     }

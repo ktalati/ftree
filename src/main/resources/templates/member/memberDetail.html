@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/common/header"></head>
+
+<style>
+
+    .dark-gray{
+        color: #616769;
+    }
+    .light-gray{
+        color: #97a4a9;
+    }
+    .no-bottom{
+        margin-bottom: 0;
+    }
+    .panel-title .fa{
+        color: #f88420;
+    }
+    .card .panel-title{
+        margin-left: 15px;
+        font-weight: bold;
+        font-family: 'MontserratMedium', sans-serif;
+        margin-top: 20px;
+    }
+    .card .text-right{
+        color: #282c2f;
+        /* font-weight: bold; */
+        font-family: 'MontserratRegular', sans-serif;
+    }
+    .avatar img {
+        width: 100px;
+        height: 100px;
+        max-width: 100px;
+        max-height: 100px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        border: 1px solid rgba(65,62,62,1.0);
+    }
+    .group-label{
+        font-family: 'MontserratRegular', sans-serif;
+        font-size: 14px !important;
+        font-weight: 100 !important;
+    }
+
+    .panel{
+        box-shadow: 0 3px 3px rgba(0,0,0,.05) !important;
+    }
+
+    .card{
+        border: #e7e7e7 1px solid;
+        border-radius: 10px;
+    }
+
+</style>
+
+<body>
+
+<div id="wrapper">
+
+    <nav th:include="/common/sidebar"></nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-sm-10" style="margin-top: 30px;">
+                <div class="col-sm-6">
+                    <div class="card panel">
+                        <header class="panel-title">
+                            <h4 class="no-bottom"><i class='fa fa-user'> </i> Member Details</h4>
+                        </header>
+                        <div class="card-body panel-body">
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-12" style="text-align:center">
+                                    <div class="avatar"><img id="profilePicture" name="profilePicture" src="/images/avatar.png"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-4">
+                                    <label class="light-gray">First Name: </label>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <span class="gray-text" th:text="${member.firstName}"></span>
+                                </div>
+                            </div>
+                            </p>
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="light-gray">Middle Name: </label>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <span class="gray-text" th:text="${member.lastName}"></span>
+                                </div>
+                            </div>
+                            </p>
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="light-gray">Last Name: </label>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <span class="gray-text" th:text="${member.lastName}"></span>
+                                </div>
+                            </div>
+
+                            </p>
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="light-gray">Gender: </label>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <span class="gray-text" th:text="${member.gender==0 ? 'Male' : 'Female'}"></span>
+                                </div>
+                            </div>
+
+                            </p>
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="light-gray">Birth Date: </label>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <span class="gray-text" th:text="${#dates.format(member.birthDate, 'dd MMMM, yyyy')}""></span>
+                                </div>
+                            </div>
+
+                            </p>
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="light-gray">Father Name: </label>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <span class="gray-text" th:text="${member.fatherValue}"></span>
+                                </div>
+                            </div>
+
+                            </p>
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="light-gray">Mother Name: </label>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <span class="gray-text" th:text="${member.motherValue}"></span>
+                                </div>
+                            </div>
+                            </p>
+
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="light-gray">Address: </label>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <span class="gray-text" th:text="${member.address.line1}"></span>
+                                    <span class="gray-text" th:text="${member.address.line2}"></span>
+                                    <span class="gray-text" th:text="${member.address.landmark}"></span>
+                                    <span class="gray-text" th:text="${member.address.city}"></span>
+                                    <span class="gray-text" th:text="${member.address.zipcode}"></span>
+                                    <span class="gray-text" th:text="${member.address.state}"></span>
+                                    <span class="gray-text" th:text="${member.address.country}"></span>
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card panel">
+                        <header class="panel-title">
+                            <h4 class="no-bottom"><i class='fa fa-phone'> </i> Contact Details</h4>
+                        </header>
+                        <div class="card-body panel-body">
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <label class="light-gray">Landline: </label>
+                                </div>
+                                <div class="col-sm-7 text-right">
+                                    <span class="gray-text" th:text="${member.phones[0].number}"></span>
+                                </div>
+                            </div>
+                            </p>
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <label class="light-gray">Cell Phone: </label>
+                                </div>
+                                <div class="col-sm-7 text-right">
+                                    <span class="gray-text" th:text="${member.phones[1].number}"></span>
+                                </div>
+                            </div>
+                            </p>
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <label class="light-gray">eMail: </label>
+                                </div>
+                                <div class="col-sm-7 text-right">
+                                    <span class="gray-text" th:text="${member.email}"></span>
+                                </div>
+                            </div>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="id" th:value="${member.id}" />
+
+                <div class="col-sm-6">
+                    <div class="card panel">
+                        <header class="panel-title">
+                            <h4 class="no-bottom"><i class='fa fa-users'> </i> Member Group</h4>
+                        </header>
+                        <div class="card-body panel-body">
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div th:each="group : ${member.groups}" th:remove="tag">
+                                        <span class="label label-default group-label" th:text="${group.name}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script>
+
+    // A $( document ).ready() block.
+    $( document ).ready(function() {
+
+        var memberId = $("input[name=id]").val();
+        console.log(memberId);
+        if(memberId != ""){
+            $.ajax({
+                url: "/member/getAvatar/encoded/"+memberId,
+                success: function(result){
+                    console.log(result);
+                    if(result!=""){
+                        $("#profilePicture").attr("src","data:image/jpg;base64,"+result);
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                    alert("Error while fetching user avatar!");
+                }
+            });
+        }
+
+    });
+</script>
+
+<footer th:include="/common/footer"></footer>
+
+</html>
