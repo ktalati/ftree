@@ -281,7 +281,7 @@
     
 
     $('#father').autocomplete({
-        minLength: 2,
+        minLength: 1,
         delay: 100,
         source: function (request, response) {
             $.getJSON("/member/getMember?term=" + request.term, function (data) {
@@ -310,7 +310,7 @@
     });
 
     $('#mother').autocomplete({
-        minLength: 2,
+        minLength: 1,
         delay: 100,
         source: function (request, response) {
             $.getJSON("/member/getMember?term=" + request.term, function (data) {

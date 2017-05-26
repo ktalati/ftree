@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/common/header"></head>
+<link rel="stylesheet" href="../css/tree-hierarchy-view.css">
+<link rel="stylesheet" href="../css/tree.css">
+
+<body>
+
+<div id="wrapper">
+
+    <nav th:include="/common/sidebar"></nav>
+
+
+    <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="management-hierarchy">
+                    <div class="hv-container">
+                        <div class="hv-wrapper">
+
+                            <!-- Key component -->
+                            <div class="hv-item">
+
+                                <div class="hv-item-parent">
+                                    <div class="person">
+                                        <img src="../images/avatar.png"
+                                             alt="">
+                                        <p class="name" th:text="${familyTree.name}">
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="hv-item-children">
+                                    <div class="hv-item-child" th:each="child : ${familyTree.children}">
+                                        <div class="hv-item">
+
+                                            <div class="hv-item-parent">
+                                                <div class="person">
+                                                    <img src="../images/avatar.png" alt="">
+                                                    <p class="name">
+                                                        Anne Potts <b>/ UI Designer</b>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="hv-item-children">
+                                                <div class="hv-item-child" th:each="child1 : ${child.children}">
+                                                    <div class="person">
+                                                        <img src="../images/avatar.png" alt="">
+                                                        <p class="name">
+                                                            Anne Potts <b>/ UI Designer</b>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+<footer th:include="/common/footer"></footer>
+
+</html>
