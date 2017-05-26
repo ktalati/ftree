@@ -26,7 +26,7 @@
 
                                 <div class="hv-item-parent">
                                     <div class="person">
-                                        <img src="../images/avatar.png"
+                                        <img th:src="${familyTree.photoStr}"
                                              alt="">
                                         <p class="name" th:text="${familyTree.name}">
                                         </p>
@@ -39,9 +39,8 @@
 
                                             <div class="hv-item-parent">
                                                 <div class="person">
-                                                    <img src="../images/avatar.png" alt="">
-                                                    <p class="name">
-                                                        Anne Potts <b>/ UI Designer</b>
+                                                    <img th:src="${child.photoStr}" alt="">
+                                                    <p class="name" th:text="${child.name}">
                                                     </p>
                                                 </div>
                                             </div>
@@ -49,9 +48,8 @@
                                             <div class="hv-item-children">
                                                 <div class="hv-item-child" th:each="child1 : ${child.children}">
                                                     <div class="person">
-                                                        <img src="../images/avatar.png" alt="">
-                                                        <p class="name">
-                                                            Anne Potts <b>/ UI Designer</b>
+                                                        <img th:src="${child1.photoStr}" alt="">
+                                                        <p class="name" th:text="${child1.name}">
                                                         </p>
                                                     </div>
                                                 </div>

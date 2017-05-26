@@ -3,7 +3,10 @@ package com.example.controller;
 import com.example.domain.FamilyMember;
 import com.example.model.Member;
 import com.example.service.MemberService;
+import com.example.util.FamilyTreeConstants;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,6 +47,7 @@ public class FamilyTreeController {
         if (member != null) {
             familyMember.setName(member.getFirstName());
             familyMember.setPhoto(member.getAvatar());
+            familyMember.setPhotoStr(encodeBytes(member.getAvatar()));
             if (member.getChildren() != null) {
                 for (Member child : member.getChildren()) {
                     familyMember.getChildren().add(generateTree(child, new FamilyMember()));
@@ -51,5 +55,15 @@ public class FamilyTreeController {
             }
         }
         return familyMember;
+    }
+    
+    private String encodeBytes(final byte[] photo){
+    	byte[] encoded=Base64.encode(photo);
+    	System.out.println(encoded.length);
+    	if(null != encoded && encoded.length > 0){
+    		return "data:image/jpg;base64,".concat(new String(encoded));
+    	}else{
+    		return FamilyTreeConstants.DEFAULT_AVATAR_PATH;
+    	}
     }
 }

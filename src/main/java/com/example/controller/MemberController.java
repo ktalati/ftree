@@ -98,7 +98,11 @@ public class MemberController {
             }
 
             try {
-				member.setAvatar(file.getBytes());
+            	if(member.isProfilePicEdited()){
+            		member.setAvatar(file.getBytes());
+            	}else{
+            		member.setAvatar(getAvatar(member.getId()));
+            	}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -203,5 +207,14 @@ public class MemberController {
         }else{
         	return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
         }
+    }
+    
+    private byte[] getAvatar(Long memeberId){
+    	Member member = memberService.findById(memeberId);
+    	byte[] avatarBytes = null;
+    	if(null != member){
+    		avatarBytes = member.getAvatar();
+    	}
+    	return avatarBytes;
     }
 }
