@@ -87,6 +87,7 @@ p.simple-card {
     margin: 0;
     position: relative;
     border: 1px solid #e7e7e7;
+    margin-top: 8px;
 }
 
 .management-hierarchy .person > p.name b {
@@ -97,8 +98,8 @@ p.simple-card {
     content: '';
     position: absolute;
     width: 2px;
-    height: 8px;
-    background-color: #fff;
+    height: 10px;
+    background-color: #e7e7e7;
     left: 50%;
     top: 0;
     transform: translateY(-100%);

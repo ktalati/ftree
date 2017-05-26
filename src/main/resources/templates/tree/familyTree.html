@@ -24,40 +24,44 @@
                             <!-- Key component -->
                             <div class="hv-item">
 
-                                <div class="hv-item-parent">
+                                <!-- Root -->
+                                <div th:classappend="${not #lists.isEmpty(familyTree.children) ? 'hv-item-parent' : 'hv-item-child'}">
                                     <div class="person">
-                                        <img th:src="${familyTree.photoStr}"
-                                             alt="">
+                                        <img th:src="${familyTree.photoStr}" alt="">
                                         <p class="name" th:text="${familyTree.name}">
                                         </p>
                                     </div>
                                 </div>
 
-                                <div class="hv-item-children">
-                                    <div class="hv-item-child" th:each="child : ${familyTree.children}">
-                                        <div class="hv-item">
-
-                                            <div class="hv-item-parent">
-                                                <div class="person">
-                                                    <img th:src="${child.photoStr}" alt="">
-                                                    <p class="name" th:text="${child.name}">
-                                                    </p>
-                                                </div>
-                                            </div>
-
-                                            <div class="hv-item-children">
-                                                <div class="hv-item-child" th:each="child1 : ${child.children}">
+                                <!-- Child -->
+                                <div th:fragment="fragment_node(familyTree)" th:remove="tag">
+                                    <div class="hv-item-children">
+                                        <div class="hv-item-child" th:each="child : ${familyTree.children}">
+                                            <div class="hv-item" th:if="${not #lists.isEmpty(child.children)}">
+                                                <div th:classappend="${not #lists.isEmpty(child.children) ? 'hv-item-parent' : 'hv-item-children'}">
                                                     <div class="person">
-                                                        <img th:src="${child1.photoStr}" alt="">
-                                                        <p class="name" th:text="${child1.name}">
+                                                        <img th:src="${child.photoStr}" alt="">
+                                                        <p class="name" th:text="${child.name}">
                                                         </p>
                                                     </div>
                                                 </div>
+                                                <div class="hv-item-child" th:replace="this::fragment_node(${child})"></div>
+                                            </div>
+                                            <div class="hv-item" th:if="${#lists.isEmpty(child.children)}">
+                                                <div th:classappend="${not #lists.isEmpty(child.children) ? 'hv-item-parent' : 'hv-item-children'}">
+                                                    <div class="person">
+                                                        <img th:src="${child.photoStr}" alt="">
+                                                        <p class="name" th:text="${child.name}">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="hv-item-child"
+                                                     th:replace="this::fragment_node(${child})"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +72,6 @@
 </div>
 
 </body>
-
 
 <footer th:include="/common/footer"></footer>
 

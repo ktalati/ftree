@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping(value = "/tree")
@@ -50,6 +51,9 @@ public class FamilyTreeController {
             familyMember.setPhotoStr(encodeBytes(member.getAvatar()));
             if (member.getChildren() != null) {
                 for (Member child : member.getChildren()) {
+                    if(familyMember.getChildren() == null){
+                        familyMember.setChildren(new ArrayList<FamilyMember>());
+                    }
                     familyMember.getChildren().add(generateTree(child, new FamilyMember()));
                 }
             }
@@ -59,7 +63,6 @@ public class FamilyTreeController {
     
     private String encodeBytes(final byte[] photo){
     	byte[] encoded=Base64.encode(photo);
-    	System.out.println(encoded.length);
     	if(null != encoded && encoded.length > 0){
     		return "data:image/jpg;base64,".concat(new String(encoded));
     	}else{
