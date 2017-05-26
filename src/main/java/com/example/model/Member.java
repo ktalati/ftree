@@ -89,6 +89,9 @@ public class Member {
 
     @Transient
     private String motherMemberValue;
+    
+    @Transient
+    private boolean profilePicEdited;
 
     public void addAddress(Address address){
         address.setMember(this);
@@ -269,4 +272,12 @@ public class Member {
     public void setChildren(List<Member> children) {
         this.children = children;
     }
+
+	public boolean isProfilePicEdited() {
+		return profilePicEdited;
+	}
+
+	public void setProfilePicEdited(boolean profilePicEdited) {
+		this.profilePicEdited = profilePicEdited;
+	}
 }

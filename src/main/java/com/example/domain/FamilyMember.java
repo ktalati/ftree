@@ -7,6 +7,7 @@ public class FamilyMember {
 
     private String name;
     private byte[] photo;
+    private String photoStr;
     private List<FamilyMember> children = new ArrayList<FamilyMember>();
 
 
@@ -26,7 +27,15 @@ public class FamilyMember {
         this.photo = photo;
     }
 
-    public List<FamilyMember> getChildren() {
+    public String getPhotoStr() {
+		return photoStr;
+	}
+
+	public void setPhotoStr(String photoStr) {
+		this.photoStr = photoStr;
+	}
+
+	public List<FamilyMember> getChildren() {
         return children;
     }
 

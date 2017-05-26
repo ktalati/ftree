@@ -45,6 +45,7 @@
 										<div id="kv-avatar-errors" class="center-block" style="width: 800px; display: none"></div>
 										<div class="kv-avatar center-block pull-right" style="width: 160px; text-align: center; margin-right: 15px;">
 											<input id="profilePicture" name="profilePicture" type="file" class="file-loading">
+											<input type="hidden" th:field="*{profilePicEdited}"/>
 										</div>
 										<!-- <img th:src="@{/member/getAvatar/4}" /> -->
 									</div>
@@ -235,6 +236,12 @@
         layoutTemplates: {main2: '{preview} {remove} {browse}', footer:''},
         allowedFileExtensions: ["jpg", "png"]
     });
+    $('#profilePicture').on('change', function(event) {
+        $('#profilePicEdited').val(true);
+    });
+    $('#profilePicture').on('fileclear', function(event) {
+        $('#profilePicEdited').val(true);
+    });
     
     function renderAvatar(imgStr,isDefault){
     	var defaultAvatarDiv = $(".file-default-preview");
@@ -248,6 +255,7 @@
     		imgTag.attr("src","/images/avatar.png");
     	}else{
     		imgTag.attr("src","data:image/jpg;base64,"+imgStr);
+    		imgTag.addClass('file-preview-image kv-preview-data rotate-1');
     	}
     	imgTag.attr("title","sample.jpg");
     	imgTag.attr("alt","sample.jpg");
