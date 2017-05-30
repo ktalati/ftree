@@ -65,6 +65,10 @@
     width: 50%;
 }
 
+.oneChild > .hv-item-child:after {
+    display: none;
+}
+
 .hv-wrapper .hv-item .hv-item-children .hv-item-child:last-child:after {
     width: calc(50% + 1px);
 }

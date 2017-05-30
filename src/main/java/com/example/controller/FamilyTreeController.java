@@ -22,6 +22,8 @@ import java.util.ArrayList;
 @RequestMapping(value = "/tree")
 public class FamilyTreeController {
 
+    public static final String MEMBER_SEPERATOR = "~";
+    
     @Autowired
     private MemberService memberService;
 
@@ -37,28 +39,63 @@ public class FamilyTreeController {
         }
         modelAndView = new ModelAndView();
 
+        Object object = findRoot(member);
         FamilyMember familyMember = new FamilyMember();
-        modelAndView.addObject("familyTree", generateTree(member, familyMember));
+        if(object instanceof Member){
+            modelAndView.addObject("familyTree", generateTree((Member) object, member.getId() , familyMember));
+        }else {
+            String firstParent = object.toString().split("~")[0];
+            Member firstParentMember = memberService.findById(Long.parseLong(firstParent));
+
+            FamilyMember childTree = generateTree(firstParentMember, member.getId() ,familyMember);
+            familyMember = new FamilyMember();
+            familyMember.setName(object.toString().split(MEMBER_SEPERATOR)[1]);
+            familyMember.setPhotoStr(encodeBytes(new byte[]{}));
+            familyMember.setChildren(new ArrayList<FamilyMember>(){{
+                add(childTree);
+            }});
+
+            modelAndView.addObject("familyTree", familyMember);
+        }
         modelAndView.setViewName("tree/familyTree");
         modelAndView.addObject("menu", "addMember");
         return modelAndView;
     }
 
-    private FamilyMember generateTree(Member member, FamilyMember familyMember) {
+    private FamilyMember generateTree(Member member, long selectedMember, FamilyMember familyMember) {
         if (member != null) {
+            if(member.getId() == selectedMember){
+                familyMember.setSelectedMember(Boolean.TRUE);
+            }
             familyMember.setName(member.getFirstName());
-            familyMember.setPhoto(member.getAvatar());
             familyMember.setPhotoStr(encodeBytes(member.getAvatar()));
             if (member.getChildren() != null) {
                 for (Member child : member.getChildren()) {
                     if(familyMember.getChildren() == null){
                         familyMember.setChildren(new ArrayList<FamilyMember>());
                     }
-                    familyMember.getChildren().add(generateTree(child, new FamilyMember()));
+                    familyMember.getChildren().add(generateTree(child, selectedMember, new FamilyMember()));
                 }
             }
         }
         return familyMember;
+    }
+
+    private Object findRoot(Member member){
+        if(member != null){
+            if(member.getFatherName() != null){
+                return findRoot(member.getFatherName());
+            }else {
+                if(member.getFatherValue() != null){
+                    StringBuilder builder = new StringBuilder();
+                    builder.append(member.getId());
+                    builder.append("~");
+                    builder.append(member.getFatherValue());
+                    return builder.toString();
+                }
+            }
+        }
+        return null;
     }
     
     private String encodeBytes(final byte[] photo){

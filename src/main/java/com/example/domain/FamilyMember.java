@@ -5,10 +5,9 @@ import java.util.List;
 public class FamilyMember {
 
     private String name;
-    private byte[] photo;
     private String photoStr;
+    private boolean selectedMember;
     private List<FamilyMember> children;
-
 
     public String getName() {
         return name;
@@ -18,23 +17,23 @@ public class FamilyMember {
         this.name = name;
     }
 
-    public byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
-    }
-
     public String getPhotoStr() {
-		return photoStr;
-	}
+        return photoStr;
+    }
 
-	public void setPhotoStr(String photoStr) {
-		this.photoStr = photoStr;
-	}
+    public void setPhotoStr(String photoStr) {
+        this.photoStr = photoStr;
+    }
 
-	public List<FamilyMember> getChildren() {
+    public boolean isSelectedMember() {
+        return selectedMember;
+    }
+
+    public void setSelectedMember(boolean selectedMember) {
+        this.selectedMember = selectedMember;
+    }
+
+    public List<FamilyMember> getChildren() {
         return children;
     }
 

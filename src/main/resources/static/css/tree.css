@@ -104,3 +104,11 @@ p.simple-card {
     top: 0;
     transform: translateY(-100%);
 }
+
+.management-hierarchy .person.selectedMember > img {
+    border: 5px solid #3BAA9D;
+}
+
+.management-hierarchy .person.selectedMember > p.name {
+    background-color: #e7e7e7;
+}
