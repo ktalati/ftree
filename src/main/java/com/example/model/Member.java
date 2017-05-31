@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.google.common.base.Objects;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -280,4 +281,24 @@ public class Member {
 	public void setProfilePicEdited(boolean profilePicEdited) {
 		this.profilePicEdited = profilePicEdited;
 	}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (!(obj instanceof Member))
+            return false;
+
+        Member other = (Member) obj;
+        return (Objects.equal(getId(), other.getId()) && Objects.equal(getEmail(), other.getEmail()));
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId(), getEmail());
+    }
 }

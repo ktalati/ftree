@@ -122,8 +122,8 @@
                                 <td th:text="${member.createdOn} ? ${#dates.format(member.createdOn, 'dd-MM-yyyy')} : '-'" style="vertical-align: inherit"></td>
                                 <td th:text="${member.updatedOn} ? ${#dates.format(member.updatedOn, 'dd-MM-yyyy')} : '-'" style="vertical-align: inherit"></td>
                                 <td class="center">
-                                    <a th:href="@{/member/edit(id=*{member.id})}" class="btn btn-outline btn-primary">Edit</a>
-                                    <a th:href="@{/member/delete(id=*{member.id})}" class="btn btn-outline btn-danger">Delete</a></td>
+                                    <a th:href="@{/member/view(id=*{member.id})}" class="btn btn-outline btn-primary">View</a>
+                                    <a th:href="@{/group/removeFromGroup(ids=*{group.id} + '~' + *{member.id})}" class="btn btn-outline btn-danger">Remove</a></td>
                             </tr>
                             </tbody>
                         </table>

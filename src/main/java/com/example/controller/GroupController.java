@@ -124,10 +124,29 @@ public class GroupController {
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 
+    @RequestMapping(value = "/removeFromGroup", method = RequestMethod.GET)
+    public String removeMemberFromGroup(@ModelAttribute("ids") String ids) {
+        try{
+            if(StringUtils.isEmpty(ids)){
+                return null;
+            }else{
+                Long groupId = Long.valueOf(ids.split("~")[0]);
+                Long memberId = Long.valueOf(ids.split("~")[1]);
 
+                Group group = groupService.findById(groupId);
 
+                Member memberToBeRemoved = memberService.findById(memberId);
 
+                memberToBeRemoved.getGroups().remove(group);
+                memberService.saveMember(memberToBeRemoved);
+
+                return "redirect:detail?id="+group.getId();
+            }
+        }catch (Exception e){
+            throw e;
+        }
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
