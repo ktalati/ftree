@@ -21,11 +21,11 @@
             <ul class="nav" id="side-menu">
 
                 <li th:classappend="${menu == 'dashboard'} ? active">
-                    <a th:classappend="${menu == 'dashboard'} ? active" th:href="@{/dashboard}"><i class="fa fa-files-o fa-fw"></i> Dashboard</a>
+                    <a th:classappend="${menu == 'dashboard'} ? active" th:href="@{/dashboard}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
 
-                <li th:classappend="${menu == 'createGroup || listGroup'} ? active">
-                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Groups<span class="fa arrow"></span></a>
+                <li th:classappend="${menu == 'createGroup' or menu == 'listGroup'} ? active">
+                    <a href="#"><i class="fa fa-group fa-fw"></i> Groups<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a th:classappend="${menu == 'createGroup'} ? active" th:href="@{/group/createGroup}">New Group</a>
@@ -36,8 +36,8 @@
                     </ul>
                 </li>
 
-                <li th:classappend="${menu == 'addMember || listMember'} ? active">
-                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Members<span class="fa arrow"></span></a>
+                <li th:classappend="${menu == 'addMember' or menu == 'listMember'} ? active">
+                    <a href="#"><i class="fa fa-user fa-fw"></i> Members<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a th:classappend="${menu == 'addMember'} ? active" th:href="@{/member/addMember}">New Member</a>

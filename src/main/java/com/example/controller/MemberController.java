@@ -153,7 +153,7 @@ public class MemberController {
         modelAndView.addObject("member", member);
         modelAndView.addObject("groups", groupService.findAllGroups());
         modelAndView.setViewName("member/memberDetail");
-        modelAndView.addObject("menu", "addMember");
+        modelAndView.addObject("menu", "listMember");
         return modelAndView;
     }
 
