@@ -1,7 +1,6 @@
 package com.example.service;
 
 import com.example.domain.MemberAutoSuggest;
-import com.example.model.Group;
 import com.example.model.Member;
 import com.example.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service("memberService")
@@ -122,4 +122,5 @@ public class MemberServiceImpl implements MemberService{
     public List<Member> findMembersByGroupId(Long id) {
         return memberRepository.findByGroups_id(id);
     }
+
 }

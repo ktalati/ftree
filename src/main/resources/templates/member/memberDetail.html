@@ -6,29 +6,35 @@
 
 <style>
 
-    .dark-gray{
+    .dark-gray {
         color: #616769;
     }
-    .light-gray{
+
+    .light-gray {
         color: #97a4a9;
     }
-    .no-bottom{
+
+    .no-bottom {
         margin-bottom: 0;
     }
-    .panel-title .fa{
+
+    .panel-title .fa {
         color: #f88420;
     }
-    .card .panel-title{
+
+    .card .panel-title {
         margin-left: 15px;
         font-weight: bold;
         font-family: 'MontserratMedium', sans-serif;
         margin-top: 20px;
     }
-    .card .text-right{
+
+    .card .text-right {
         color: #282c2f;
         /* font-weight: bold; */
         font-family: 'MontserratRegular', sans-serif;
     }
+
     .avatar img {
         width: 100px;
         height: 100px;
@@ -37,19 +43,20 @@
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
         border-radius: 50%;
-        border: 1px solid rgba(65,62,62,1.0);
+        border: 1px solid rgba(65, 62, 62, 1.0);
     }
-    .group-label{
+
+    .group-label {
         font-family: 'MontserratRegular', sans-serif;
         font-size: 14px !important;
         font-weight: 100 !important;
     }
 
-    .panel{
-        box-shadow: 0 3px 3px rgba(0,0,0,.05) !important;
+    .panel {
+        box-shadow: 0 3px 3px rgba(0, 0, 0, .05) !important;
     }
 
-    .card{
+    .card {
         border: #e7e7e7 1px solid;
         border-radius: 10px;
     }
@@ -74,7 +81,8 @@
                             <p>
                             <div class="row">
                                 <div class="col-sm-12" style="text-align:center">
-                                    <div class="avatar"><img id="profilePicture" name="profilePicture" src="/images/avatar.png"/>
+                                    <div class="avatar"><img id="profilePicture" name="profilePicture"
+                                                             src="/images/avatar.png"/>
                                     </div>
                                 </div>
                             </div>
@@ -126,10 +134,21 @@
                                     <label class="light-gray">Birth Date: </label>
                                 </div>
                                 <div class="col-sm-8 text-right">
-                                    <span class="gray-text" th:text="${#dates.format(member.birthDate, 'dd MMMM, yyyy')}""></span>
+                                    <span class="gray-text"
+                                          th:text="${#dates.format(member.birthDate, 'dd MMMM, yyyy')}""></span>
                                 </div>
                             </div>
-
+                            </p>
+                            <p>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="light-gray">Annivarsary: </label>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    <span class="gray-text"
+                                          th:text="${#dates.format(member.annivarsaryDate, 'dd MMMM, yyyy')}""></span>
+                                </div>
+                            </div>
                             </p>
                             <p>
                             <div class="row">
@@ -213,7 +232,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="id" th:value="${member.id}" />
+                <input type="hidden" name="id" th:value="${member.id}"/>
 
                 <div class="col-sm-6">
                     <div class="card panel">
@@ -243,20 +262,18 @@
 <script>
 
     // A $( document ).ready() block.
-    $( document ).ready(function() {
+    $(document).ready(function () {
 
         var memberId = $("input[name=id]").val();
-        console.log(memberId);
-        if(memberId != ""){
+        if (memberId != "") {
             $.ajax({
-                url: "/member/getAvatar/encoded/"+memberId,
-                success: function(result){
-                    console.log(result);
-                    if(result!=""){
-                        $("#profilePicture").attr("src","data:image/jpg;base64,"+result);
+                url: "/member/getAvatar/encoded/" + memberId,
+                success: function (result) {
+                    if (result != "") {
+                        $("#profilePicture").attr("src", "data:image/jpg;base64," + result);
                     }
                 },
-                error: function(error){
+                error: function (error) {
                     console.log(error);
                     alert("Error while fetching user avatar!");
                 }

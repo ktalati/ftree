@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository("memberRepository")
@@ -18,5 +19,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findMemberByFirstNameOrLastName(@Param("name") String name);
 
     List<Member> findByGroups_id(Long id);
+
+    @Query(value = "select * from member m where day(m.birthDate) = day(:current_date) and month(m.birthDate) = month(:current_date)", nativeQuery = true)
+    List<Member> findMemberByBirthDate(@Param("current_date") Date date);
 
 }

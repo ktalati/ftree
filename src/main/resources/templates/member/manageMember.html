@@ -34,7 +34,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
+                    <div class="panel panel-green">
                         <div class="panel-heading">
                             Add New Member
                         </div>
@@ -86,6 +86,11 @@
                                         <label>Birthdate</label>
                                         <!--<input class="form-control" th:field="*{birthdate}" id="datepicker">-->
                                         <input class="form-control" id="birthDate" th:field="*{birthDate}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Annivarsary</label>
+                                        <input class="form-control" id="annivarsaryDate" th:field="*{annivarsaryDate}">
                                     </div>
 
                                     <div class="form-group" th:classappend="${#fields.hasErrors('fatherMemberValue')} ? has-error">
@@ -185,10 +190,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <button type="submit" class="btn btn-primary pull-right">Submit Button</button>
+                                        <button type="submit" class="btn btn-primary pull-right">Save</button>
                                     </div>
                                     <div class="col-lg-6">
-                                        <button type="reset" class="btn btn-default">Reset Button</button>
+                                        <button type="reset" class="btn btn-warning">Reset</button>
                                     </div>
                                 </div>
                             </form>
@@ -216,6 +221,11 @@
     });
 
     $("#birthDate").datepicker({
+        inline: true,
+        maxDate: 0
+    });
+
+    $("#annivarsaryDate").datepicker({
         inline: true,
         maxDate: 0
     });

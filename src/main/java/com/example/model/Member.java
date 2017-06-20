@@ -40,6 +40,11 @@ public class Member {
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date birthDate;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "annivarsaryDate")
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    private Date annivarsaryDate;
+
     @Column(name = "email")
     @Email(message = "*Please provide a valid Email")
     @NotEmpty(message = "*Please provide an email")
@@ -281,6 +286,14 @@ public class Member {
 	public void setProfilePicEdited(boolean profilePicEdited) {
 		this.profilePicEdited = profilePicEdited;
 	}
+
+    public Date getAnnivarsaryDate() {
+        return annivarsaryDate;
+    }
+
+    public void setAnnivarsaryDate(Date annivarsaryDate) {
+        this.annivarsaryDate = annivarsaryDate;
+    }
 
     @Override
     public boolean equals(Object obj) {
