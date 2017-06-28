@@ -41,9 +41,9 @@ public class Member {
     private Date birthDate;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "annivarsaryDate")
+    @Column(name = "anniversary_date")
     @DateTimeFormat(pattern = "MM/dd/yyyy")
-    private Date annivarsaryDate;
+    private Date anniversaryDate;
 
     @Column(name = "email")
     @Email(message = "*Please provide a valid Email")
@@ -287,12 +287,12 @@ public class Member {
 		this.profilePicEdited = profilePicEdited;
 	}
 
-    public Date getAnnivarsaryDate() {
-        return annivarsaryDate;
+    public Date getAnniversaryDate() {
+        return anniversaryDate;
     }
 
-    public void setAnnivarsaryDate(Date annivarsaryDate) {
-        this.annivarsaryDate = annivarsaryDate;
+    public void setAnniversaryDate(Date anniversaryDate) {
+        this.anniversaryDate = anniversaryDate;
     }
 
     @Override

@@ -39,7 +39,12 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public List<Member> findMemberByBirthdate(Date date) {
-        return memberRepository.findMemberByBirthDate(date);
+    public List<Member> getUpcomingBirthDays() {
+        return memberRepository.getUpcomingBirthDays();
+    }
+
+    @Override
+    public List<Member> findMemberByAnniversaryDate(Date date) {
+        return memberRepository.findMemberByAnniversaryDate(date);
     }
 }

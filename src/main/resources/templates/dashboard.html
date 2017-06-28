@@ -136,9 +136,9 @@
                     <div class="panel-body">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs nav-justified">
-                            <li class="active"><a href="#birthdays" data-toggle="tab">Birthdays  <span class="badge">4</span></a>
+                            <li class="active"><a href="#birthdays" data-toggle="tab">Birthdays  <span class="badge" th:text="${#lists.size(birthdays)}"></span></a>
                             </li>
-                            <li><a href="#anniverseries" data-toggle="tab">Anniverseries  <span class="badge">10</span></a>
+                            <li><a href="#anniverseries" data-toggle="tab">Anniverseries  <span class="badge" th:text="${#lists.size(anniversaries)}"></span></a>
                             </li>
                         </ul>
 
@@ -146,104 +146,22 @@
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="birthdays">
                                 <div class="list-group">
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-comment fa-fw"></i> New Comment
-                                        <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                        <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                        <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-tasks fa-fw"></i> New Task
-                                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                        <span class="pull-right text-muted small"><em>11:32 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-bolt fa-fw"></i> Server Crashed!
-                                        <span class="pull-right text-muted small"><em>11:13 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-warning fa-fw"></i> Server Not Responding
-                                        <span class="pull-right text-muted small"><em>10:57 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
-                                        <span class="pull-right text-muted small"><em>9:49 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-money fa-fw"></i> Payment Received
-                                        <span class="pull-right text-muted small"><em>Yesterday</em>
-                                    </span>
+                                    <a href="#" class="list-group-item" th:each="member : ${birthdays}">
+                                        <i class="fa fa-gift fa-fw"></i> <span
+                                            th:text="*{member.firstName +' '+ member.middleName +' '+ member.lastName}"></span>
+                                        <span class="pull-right text-muted small"><em><span th:text="${#dates.format(member.birthDate, 'dd MMMM')}"/></em> </span>
                                     </a>
                                 </div>
-                                <!-- /.list-group -->
                                 <a href="#" class="btn btn-default btn-block">View All Alerts</a>
                             </div>
                             <div class="tab-pane fade" id="anniverseries">
                                 <div class="list-group">
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-comment fa-fw"></i> New Comment
-                                        <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                        <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                        <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-tasks fa-fw"></i> New Task
-                                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                        <span class="pull-right text-muted small"><em>11:32 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-bolt fa-fw"></i> Server Crashed!
-                                        <span class="pull-right text-muted small"><em>11:13 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-warning fa-fw"></i> Server Not Responding
-                                        <span class="pull-right text-muted small"><em>10:57 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
-                                        <span class="pull-right text-muted small"><em>9:49 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-money fa-fw"></i> Payment Received
-                                        <span class="pull-right text-muted small"><em>Yesterday</em>
-                                    </span>
+                                    <a href="#" class="list-group-item" th:each="member : ${anniversaries}">
+                                        <i class="fa fa-gift fa-fw"></i> <span
+                                            th:text="*{member.firstName +' '+ member.middleName +' '+ member.lastName}"></span>
+                                        <span class="pull-right text-muted small"><em><span th:text="${#dates.format(member.anniversaryDate, 'dd MMMM')}"/></em> </span>
                                     </a>
                                 </div>
-                                <!-- /.list-group -->
                                 <a href="#" class="btn btn-default btn-block">View All Alerts</a>
                             </div>
                         </div>

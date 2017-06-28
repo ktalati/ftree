@@ -35,7 +35,8 @@ public class DashboardController {
         modelAndView.addObject("remainingMessages",dashboardService.getRemainingMessages());
         modelAndView.addObject("totalSubscription",dashboardService.getTotalSubscriptions());
 
-        modelAndView.addObject("birthdays",dashboardService.findMemberByBirthdate(new Date()));
+        modelAndView.addObject("birthdays",dashboardService.getUpcomingBirthDays());
+        modelAndView.addObject("anniversaries",dashboardService.findMemberByAnniversaryDate(new Date()));
 
         modelAndView.setViewName("dashboard");
         modelAndView.addObject("menu","dashboard");
