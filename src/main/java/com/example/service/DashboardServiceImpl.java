@@ -39,8 +39,13 @@ public class DashboardServiceImpl implements DashboardService {
     }
 
     @Override
-    public List<Member> getUpcomingBirthDays() {
-        return memberRepository.getUpcomingBirthDays();
+    public List<Member> getUpcomingBirthDays(int noOfDays) {
+        return memberRepository.getUpcomingBirthDays(noOfDays);
+    }
+
+    @Override
+    public List<Member> getUpcomingAnniversaries(int noOfDays) {
+        return memberRepository.getUpcomingAnniversaries(noOfDays);
     }
 
     @Override

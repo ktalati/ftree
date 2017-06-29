@@ -15,7 +15,9 @@ public interface DashboardService {
 
     public long getTotalSubscriptions();
 
-    List<Member> getUpcomingBirthDays();
+    List<Member> getUpcomingBirthDays(int noOfDays);
+
+    List<Member> getUpcomingAnniversaries(int noOfDays);
 
     List<Member> findMemberByAnniversaryDate(Date date);
 }

@@ -152,7 +152,7 @@
                                         <span class="pull-right text-muted small"><em><span th:text="${#dates.format(member.birthDate, 'dd MMMM')}"/></em> </span>
                                     </a>
                                 </div>
-                                <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+                                <a th:href="@{/occasion/birthdays/30}" class="btn btn-default btn-block">View All</a>
                             </div>
                             <div class="tab-pane fade" id="anniverseries">
                                 <div class="list-group">
@@ -162,7 +162,7 @@
                                         <span class="pull-right text-muted small"><em><span th:text="${#dates.format(member.anniversaryDate, 'dd MMMM')}"/></em> </span>
                                     </a>
                                 </div>
-                                <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+                                <a th:href="@{/occasion/anniversaries/30}" class="btn btn-default btn-block">View All</a>
                             </div>
                         </div>
                     </div>

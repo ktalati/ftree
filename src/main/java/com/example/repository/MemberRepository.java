@@ -23,8 +23,11 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "select * from member m where day(m.birthDate) = day(:current_date) and month(m.birthDate) = month(:current_date)", nativeQuery = true)
     List<Member> findMemberByBirthDate(@Param("current_date") Date date);
 
-    @Query(value = "select * from member m where MOD(DAYOFYEAR(m.birthdate) - DAYOFYEAR(CURRENT_DATE()) + 366, 366) BETWEEN 0 and 7 ORDER by DAYOFYEAR(m.birthdate) ASC", nativeQuery = true)
-    List<Member> getUpcomingBirthDays();
+    @Query(value = "select * from member m where MOD(DAYOFYEAR(m.birthdate) - DAYOFYEAR(CURRENT_DATE()) + 366, 366) BETWEEN 0 and :noOfDays ORDER by DAYOFYEAR(m.birthdate) ASC", nativeQuery = true)
+    List<Member> getUpcomingBirthDays(@Param("noOfDays") int days);
+
+    @Query(value = "select * from member m where MOD(DAYOFYEAR(m.anniversary_date) - DAYOFYEAR(CURRENT_DATE()) + 366, 366) BETWEEN 0 and :noOfDays ORDER by DAYOFYEAR(m.anniversary_date) ASC", nativeQuery = true)
+    List<Member> getUpcomingAnniversaries(@Param("noOfDays") int days);
 
     @Query(value = "select * from member m where day(m.anniversary_date) = day(:current_date) and month(m.anniversary_date) = month(:current_date)", nativeQuery = true)
     List<Member> findMemberByAnniversaryDate(@Param("current_date") Date date);
